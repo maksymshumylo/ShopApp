@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Shop.ViewModels;
+using System.Diagnostics.Eventing.Reader;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace Shop.Views
+namespace Shop.Views;
+
+public partial class BucketWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for BucketWindow.xaml
-    /// </summary>
-    public partial class BucketWindow : Window
+    private BucketViewModel bucketViewModel = new();
+    public BucketWindow()
     {
-        public BucketWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        DataContext = bucketViewModel;
+        //DataContext = Ioc.Default.GetService<BucketViewModel>();
     }
 }

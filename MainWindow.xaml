@@ -49,6 +49,11 @@
                         Width="100" Margin="10"
                         Content="Busket"
                         HorizontalAlignment="Right" Click="Button_Click"/>
+                <Button x:Name="viewBusket1"
+                        Grid.Column="4"
+                        Width="100" Margin="0 100 0 0"
+                        Content="Add 10"
+                        HorizontalAlignment="Right" Click="viewBusket1_Click"/>
             </Grid>
         </StackPanel>
 

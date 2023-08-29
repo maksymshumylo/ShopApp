@@ -1,19 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Shop.Models;
-using Shop.Views;
-using Shop.Models;
+﻿using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Shop.ViewModels
 {
@@ -29,47 +18,53 @@ namespace Shop.ViewModels
             get => _priceId;
             set
             {
-                IEnumerable<ProductsBase> list = null;
-                CollectionToView.Clear();
-
-                switch (SelectedId)
-                {
-                    case 0:
-                        list = Products;
-                        break;
-                    case 1:
-                        list = Products.Where(e => e.Category == "Clothes");
-                        break;
-                    case 2:
-                        list = Products.Where(e => e.Category == "Sport");
-                        break;
-                    case 3:
-                        list = Products.Where(e => e.Category == "Tech");
-                        break;
-                }
-
-                switch (value)
-                {
-                    case 0:
-                        list = list.OrderByDescending(e => e.Price);
-                        break;
-                    case 1:
-                        list = list.OrderBy(e => e.Price);
-                        break;
-                }
-
-                foreach (var item in list)
-                {
-                    CollectionToView.Add(item);
-                }
-
-                OnPropertyChanged(nameof(CollectionToView));
-
-                _priceId = value;
-                OnPropertyChanged(nameof(PriceId));
+                SortByPrice(value);
             }
         }
 
+        private void SortByPrice(int value)
+        {
+            IEnumerable<ProductsBase> list = null;
+            CollectionToView.Clear();
+
+
+            switch (SelectedId)
+            {
+                case 0:
+                    list = Products;
+                    break;
+                case 1:
+                    list = Products.Where(e => e.Category == "Clothes");
+                    break;
+                case 2:
+                    list = Products.Where(e => e.Category == "Sport");
+                    break;
+                case 3:
+                    list = Products.Where(e => e.Category == "Tech");
+                    break;
+            }
+
+            switch (value)
+            {
+                case 0:
+                    list = list.OrderByDescending(e => e.Price);
+                    break;
+                case 1:
+                    list = list.OrderBy(e => e.Price);
+                    break;
+            }
+
+            foreach (var item in list)
+            {
+                CollectionToView.Add(item);
+            }
+
+            OnPropertyChanged(nameof(CollectionToView));
+
+            _priceId = value;
+            OnPropertyChanged(nameof(PriceId));
+
+        }
 
         public int SelectedId
         {
@@ -111,6 +106,7 @@ namespace Shop.ViewModels
 
                 _selectedId = value;
                 OnPropertyChanged(nameof(SelectedId));
+                SortByPrice(PriceId);
             }
         }
 
